@@ -10,13 +10,6 @@ import (
 	"github.com/go-kit/kit/transport"
 )
 
-// Handler which should be called from the wirenet binding of the service
-// implementation. The incoming request parameter, and returned response
-// parameter, are both wirenet types, not user-domain.
-type Handler interface {
-	Serve(ctx context.Context, request interface{}) (context.Context, interface{}, error)
-}
-
 // Server wraps an endpoint and implements wirenet.Handler.
 type Server struct {
 	e            endpoint.Endpoint
@@ -26,6 +19,8 @@ type Server struct {
 	before       []ServerRequestFunc
 }
 
+// NewStreamServer constructs a new server, which implements wraps the provided
+// endpoint and implements the Handler interface.
 func NewServer(
 	e endpoint.Endpoint,
 	dec DecodeRequestFunc,

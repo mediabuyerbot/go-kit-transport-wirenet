@@ -14,7 +14,7 @@ var (
 	ErrSessionIDNotDefined = errors.New("session id not defined")
 )
 
-// Client wraps a Wire connection and provides a method
+// Client wraps a wirenet connection and provides a method
 // that implements endpoint.Endpoint.
 type Client struct {
 	streamName string
@@ -54,7 +54,7 @@ func ClientBefore(before ...ClientRequestFunc) ClientOption {
 	return func(c *Client) { c.before = append(c.before, before...) }
 }
 
-// Endpoint returns a usable endpoint that will invoke the Wire specified
+// Endpoint returns a usable endpoint that will invoke the wirenet specified
 // by the client.
 func (c Client) Endpoint() endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (interface{}, error) {

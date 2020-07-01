@@ -15,6 +15,84 @@ import (
 	test "github.com/mediabuyerbot/go-wirenet-gokit/test"
 )
 
+// {client1, client2} <-> server
+func TestServer_Endpoint(t *testing.T) {
+	addr := ":8989"
+	initServer := make(chan struct{})
+
+	// server side
+	server, err := wirenet.Mount(addr,
+		wirenet.WithConnectHook(func(closer io.Closer) {
+			close(initServer)
+		}),
+	)
+	assert.Nil(t, err)
+	// go-kit
+	svc := test.NewService()
+	endpoints := test.NewEndpointSet(svc)
+	test.MakeWirenetHandlers(server, endpoints)
+	go func() {
+		assert.Nil(t, server.Connect())
+	}()
+	<-initServer
+
+	var wg sync.WaitGroup
+	wg.Add(2)
+
+	// client1
+	go func() {
+		cid := wirenet.Identification("client1")
+		sessCh := make(chan wirenet.Session)
+		wire, err := wirenet.Join(addr,
+			wirenet.WithSessionOpenHook(func(session wirenet.Session) {
+				sessCh <- session
+			}),
+			wirenet.WithIdentification(cid, nil))
+		assert.Nil(t, err)
+		go func() {
+			assert.Nil(t, wire.Connect())
+		}()
+
+		sess := <-sessCh
+		client := test.MakeWirenetClient(wire)
+		ctx := wirenettransport.InjectSessionID(sess.ID(), context.Background())
+		for i := 0; i < 10; i++ {
+			sum, err := client.UpdateBalance(ctx, 1, 5)
+			assert.Nil(t, err)
+			assert.Equal(t, 6, sum)
+		}
+		wg.Done()
+	}()
+
+	// client2
+	go func() {
+		cid := wirenet.Identification("client2")
+		sessCh := make(chan wirenet.Session)
+		wire, err := wirenet.Join(addr,
+			wirenet.WithSessionOpenHook(func(session wirenet.Session) {
+				sessCh <- session
+			}),
+			wirenet.WithIdentification(cid, nil))
+		assert.Nil(t, err)
+		go func() {
+			assert.Nil(t, wire.Connect())
+		}()
+
+		sess := <-sessCh
+		client := test.MakeWirenetClient(wire)
+		ctx := wirenettransport.InjectSessionID(sess.ID(), context.Background())
+		for i := 0; i < 10; i++ {
+			sum, err := client.UpdateBalance(ctx, 1, 5)
+			assert.Nil(t, err)
+			assert.Equal(t, 6, sum)
+		}
+		wg.Done()
+	}()
+	wg.Wait()
+
+	assert.Nil(t, server.Close())
+}
+
 // server <-> {client1, client2}
 func TestClient_Endpoint(t *testing.T) {
 	addr := ":8989"
@@ -27,12 +105,6 @@ func TestClient_Endpoint(t *testing.T) {
 		wirenet.WithConnectHook(func(closer io.Closer) {
 			close(initServer)
 		}),
-		wirenet.WithSessionOpenHook(func(session wirenet.Session) {
-			t.Logf("open session id %s", session.ID())
-		}),
-		wirenet.WithSessionCloseHook(func(session wirenet.Session) {
-			t.Logf("close session id %s", session.ID())
-		}),
 	)
 	assert.Nil(t, err)
 	go func() {
@@ -42,11 +114,11 @@ func TestClient_Endpoint(t *testing.T) {
 
 	// request from server to {client1, client2}
 	go func() {
+		time.Sleep(time.Second)
 		client := test.MakeWirenetClient(server)
 		ctx := context.Background()
 
-		for {
-			time.Sleep(500 * time.Millisecond)
+		for i := 0; i < 2; i++ {
 			for uuid, sess := range server.Sessions() {
 				t.Logf("request to %s, uuid %s", sess.Identification(), sess.ID())
 				ctxWithCurrentSession := wirenettransport.InjectSessionID(uuid, ctx)
