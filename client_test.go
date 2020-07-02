@@ -114,7 +114,7 @@ func TestClient_Endpoint(t *testing.T) {
 
 	// request from server to {client1, client2}
 	go func() {
-		time.Sleep(time.Second)
+		time.Sleep(3 * time.Second)
 		client := test.MakeWirenetClient(server)
 		ctx := context.Background()
 

@@ -154,6 +154,8 @@ github.com/mattn/go-runewidth v0.0.2/go.mod h1:LwmH8dsx7+W8Uxz3IHJYH5QSwggIsqBzp
 github.com/matttproud/golang_protobuf_extensions v1.0.1/go.mod h1:D8He9yQNgCq6Z5Ld7szi9bcBfOoFv/3dc6xSMkL2PC0=
 github.com/mediabuyerbot/go-wirenet v0.0.0-20200630070926-38e2114d0d17 h1:WK7TsfzVd10/T2cwgJ9MSBUw2WHbyd50xrIw7VbKlwo=
 github.com/mediabuyerbot/go-wirenet v0.0.0-20200630070926-38e2114d0d17/go.mod h1:4An+VEvCkei1+lFFWFSNaoBM/WrhAc6wDLduFHiZpns=
+github.com/mediabuyerbot/go-wirenet v0.1.0 h1:48W7V/Zg+yz0Uqb3q1WFLE7yZy1C/6THqexZGRL3sF4=
+github.com/mediabuyerbot/go-wirenet v0.1.0/go.mod h1:4An+VEvCkei1+lFFWFSNaoBM/WrhAc6wDLduFHiZpns=
 github.com/miekg/dns v1.0.14/go.mod h1:W1PPwlIAgtquWBMBEV9nkV9Cazfe8ScdGz/Lj7v3Nrg=
 github.com/mitchellh/cli v1.0.0/go.mod h1:hNIlj7HEI86fIcpObd7a0FcrxTWetlwJDGcceTlRvqc=
 github.com/mitchellh/go-homedir v1.0.0/go.mod h1:SfyaCUpYCn1Vlf4IUYiD9fPX4A5wJrkLzIz1N1q0pr0=
