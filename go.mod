@@ -1,4 +1,4 @@
-module github.com/mediabuyerbot/go-wirenet-gokit
+module github.com/mediabuyerbot/go-kit-transport-wirenet
 
 go 1.14
 
