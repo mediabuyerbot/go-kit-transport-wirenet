@@ -56,6 +56,7 @@ github.com/fsnotify/fsnotify v1.4.7/go.mod h1:jwhsz4b93w/PPRr/qN1Yymfu8t87LnFCMo
 github.com/ghodss/yaml v1.0.0/go.mod h1:4dBDuWmgqj2HViK6kFavaiC9ZROes6MMH2rRYeMEF04=
 github.com/go-kit/kit v0.8.0/go.mod h1:xBxKIO96dXMWWy0MnWVtmwkA9/13aqxPnvrjFYMA2as=
 github.com/go-kit/kit v0.9.0/go.mod h1:xBxKIO96dXMWWy0MnWVtmwkA9/13aqxPnvrjFYMA2as=
+github.com/go-kit/kit v0.10.0 h1:dXFJfIHVvUcpSgDOV+Ne6t7jXri8Tfv2uOLHUZ2XNuo=
 github.com/go-kit/kit v0.10.0/go.mod h1:xUsJbQ/Fp4kEt7AFgCuvyX4a71u8h9jB8tj/ORgOZ7o=
 github.com/go-logfmt/logfmt v0.3.0/go.mod h1:Qt1PoO58o5twSAckw1HlFXLmHsOX5/0LbT9GBnD5lWE=
 github.com/go-logfmt/logfmt v0.4.0/go.mod h1:3RMwSq7FuexP4Kalkev3ejPJsZTpXXBr9+V4qmtdjCk=
@@ -156,6 +157,8 @@ github.com/mediabuyerbot/go-wirenet v0.0.0-20200630070926-38e2114d0d17 h1:WK7Tsf
 github.com/mediabuyerbot/go-wirenet v0.0.0-20200630070926-38e2114d0d17/go.mod h1:4An+VEvCkei1+lFFWFSNaoBM/WrhAc6wDLduFHiZpns=
 github.com/mediabuyerbot/go-wirenet v0.1.0 h1:48W7V/Zg+yz0Uqb3q1WFLE7yZy1C/6THqexZGRL3sF4=
 github.com/mediabuyerbot/go-wirenet v0.1.0/go.mod h1:4An+VEvCkei1+lFFWFSNaoBM/WrhAc6wDLduFHiZpns=
+github.com/mediabuyerbot/go-wirenet-gokit v0.1.0 h1:mAyVVy/ESSLGzttJaheOoybroWeZLbuHpyFMFGNB50Y=
+github.com/mediabuyerbot/go-wirenet-gokit v0.1.0/go.mod h1:+DkU+X5ARo8gnu9a01XR4/ftD/Bf4xorW8ntUsTpHQo=
 github.com/miekg/dns v1.0.14/go.mod h1:W1PPwlIAgtquWBMBEV9nkV9Cazfe8ScdGz/Lj7v3Nrg=
 github.com/mitchellh/cli v1.0.0/go.mod h1:hNIlj7HEI86fIcpObd7a0FcrxTWetlwJDGcceTlRvqc=
 github.com/mitchellh/go-homedir v1.0.0/go.mod h1:SfyaCUpYCn1Vlf4IUYiD9fPX4A5wJrkLzIz1N1q0pr0=

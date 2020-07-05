@@ -7,8 +7,8 @@ import (
 	"os"
 	"path/filepath"
 
+	wirenettransport "github.com/mediabuyerbot/go-kit-transport-wirenet"
 	"github.com/mediabuyerbot/go-wirenet"
-	wirenettransport "github.com/mediabuyerbot/go-wirenet-gokit"
 )
 
 func MakeWirenetHandlers(wire wirenet.Wire, endpoints Set) {

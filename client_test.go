@@ -2,22 +2,24 @@ package wirenettransport_test
 
 import (
 	"context"
+	"fmt"
 	"io"
+	"net"
 	"sync"
 	"testing"
 	"time"
 
-	wirenettransport "github.com/mediabuyerbot/go-wirenet-gokit"
+	wirenettransport "github.com/mediabuyerbot/go-kit-transport-wirenet"
 
 	"github.com/stretchr/testify/assert"
 
+	test "github.com/mediabuyerbot/go-kit-transport-wirenet/test"
 	"github.com/mediabuyerbot/go-wirenet"
-	test "github.com/mediabuyerbot/go-wirenet-gokit/test"
 )
 
 // {client1, client2} <-> server
 func TestServer_Endpoint(t *testing.T) {
-	addr := ":8989"
+	addr := randomAddr(t)
 	initServer := make(chan struct{})
 
 	// server side
@@ -95,7 +97,7 @@ func TestServer_Endpoint(t *testing.T) {
 
 // server <-> {client1, client2}
 func TestClient_Endpoint(t *testing.T) {
-	addr := ":8989"
+	addr := randomAddr(t)
 	initServer := make(chan struct{})
 	wait := func() {
 		time.Sleep(5 * time.Second)
@@ -171,4 +173,17 @@ func TestClient_Endpoint(t *testing.T) {
 	wg.Wait()
 	assert.Nil(t, server.Close())
 	assert.Len(t, server.Sessions(), 0)
+}
+
+func randomAddr(t *testing.T) string {
+	if t == nil {
+		t = new(testing.T)
+	}
+	addr, err := net.ResolveTCPAddr("tcp", "0.0.0.0:0")
+	assert.Nil(t, err)
+	listener, err := net.ListenTCP("tcp", addr)
+	assert.Nil(t, err)
+	defer listener.Close()
+	port := listener.Addr().(*net.TCPAddr).Port
+	return fmt.Sprintf(":%d", port)
 }

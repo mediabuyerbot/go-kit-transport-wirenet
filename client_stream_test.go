@@ -6,14 +6,14 @@ import (
 	"sync"
 	"testing"
 
+	wirenettransport "github.com/mediabuyerbot/go-kit-transport-wirenet"
+	"github.com/mediabuyerbot/go-kit-transport-wirenet/test"
 	"github.com/mediabuyerbot/go-wirenet"
-	wirenettransport "github.com/mediabuyerbot/go-wirenet-gokit"
-	"github.com/mediabuyerbot/go-wirenet-gokit/test"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestStreamServer_Endpoint(t *testing.T) {
-	addr := ":8989"
+	addr := randomAddr(t)
 	initServer := make(chan struct{})
 
 	// server side
